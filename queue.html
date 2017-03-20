@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>queue</title>
+	<script>
+//判断是否是整数
+	function checkInput(num) {
+    reg=/^[-+]?\d*$/; //整数的正则表达式
+    if(num == "") {
+        alert("输入不能为空！");
+        return false;
+    }else if(!reg.test(num)) {
+        alert("只能输入整数！");
+        return false;
+    }else return true;
+}
+//左插入
+function leftIn(content) {
+	var num = document.getElementById('data').value;
+	if (checkInput(num)) {
+		var li = document.createElement("li");
+		li.innerHTML = num;
+		var List = content.childNodes;
+		console.log(List);
+		content.insertBefore(li,List[0]);
+		List[0].style.paddingLeft=num+'px';
+		List[0].style.paddingRight=num+'px';
+
+	}
+}
+//右插入
+function rightIn(content) {
+	var num = document.getElementById('data').value;
+	if (checkInput(num)) {
+		var li = document.createElement("li");
+		li.innerHTML = num;
+		content.appendChild(li);
+		li.style.paddingLeft=num+'px';
+		li.style.paddingRight=num+'px';
+	}
+}
+//左删除
+function leftDel(content) {
+	var List = content.childNodes;
+	content.removeChild(List[0]);
+}
+//右删除
+function rightDel(content) {
+	var List = content.childNodes;
+	content.removeChild(List[List.length-1]);
+}
+
+//绑定事件
+function init() {
+
+    var content = document.getElementById("content");
+
+    document.getElementById("in-l").onclick = function() {
+    leftIn(content);
+}
+    document.getElementById("in-r").onclick = function() {
+    rightIn(content);
+}
+    document.getElementById("out-l").onclick = function() {
+    leftDel(content);
+}
+    document.getElementById("out-r").onclick = function() {
+    rightDel(content);
+    }
+}
+ init();
+
+  
+
+</script>
+	<style>
+		input {
+		 float: left;
+		}
+
+		button {
+			float: left;
+			margin-right: 5px;
+			margin-left: 5px;
+		}
+		#out-l {
+			margin-left: 15px;
+		}
+		.cleanfix {
+			clear: both;
+		}
+		li {
+			background: red;
+			height: 30px;
+			line-height: 30px;
+			float: left;
+			list-style:none;
+			margin: 10px 5px;
+			/*padding: 0px 10px;*/
+			cursor: pointer;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+<div>	
+	<input type="text" id="data">
+	<button id = "in-l" value="1">左侧入</button>
+	<button id = "in-r" value="2">右侧入</button>
+	<button id = "out-l" value="3">左侧出</button>
+	<button id = "out-r" value="4">右侧出</button>
+</div>
+<ul id = "content" class="cleanfix">
+	
+</ul>
+</body>
+
+</html>
